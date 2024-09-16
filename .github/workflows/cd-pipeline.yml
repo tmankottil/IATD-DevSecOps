@@ -31,8 +31,9 @@ jobs:
 
       - name: Install jq
         run: |
-          curl -L -o /usr/bin/jq https://stedolan.github.io/jq/download/linux64/jq
-          chmod +x /usr/bin/jq
+          curl -L -o /tmp/jq https://stedolan.github.io/jq/download/linux64/jq
+          chmod +x /tmp/jq
+          export PATH=$PATH:/tmp
 
       - name: Azure CLI script
         id: token-gen
