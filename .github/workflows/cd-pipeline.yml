@@ -29,14 +29,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Install jq
+        run: |
+          curl -L -o /usr/bin/jq https://stedolan.github.io/jq/download/linux64/jq
+          chmod +x /usr/bin/jq
+
       - name: Azure CLI script
         id: token-gen
         uses: azure/CLI@v1
         with:
           azcliversion: latest
           inlineScript: |
-            apt-get update
-            apt-get install -y jq
             ACCESS_TOKEN=$(az account get-access-token | jq -r .accessToken)
             echo "azureAccessToken=$ACCESS_TOKEN" >> "$GITHUB_OUTPUT"
 
